@@ -2,7 +2,7 @@ import csv
 
 input_file = '../input/Release Notes.csv'
 output_file = '../data/LatestReleaseNotes.csv'
-cols_to_remove = [2, 3, 4] # Column indexes to be removed (starts at 0)
+cols_to_remove = [2, 3, 4, 5] # Column indexes to be removed (starts at 0)
 
 cols_to_remove = sorted(cols_to_remove, reverse=True) # Reverse so we remove from the end first
 row_count = 0 # Current amount of rows processed
