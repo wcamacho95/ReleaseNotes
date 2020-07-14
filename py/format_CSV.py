@@ -1,23 +1,4 @@
-# Release Notes from Azure DevOps to DRS using CSV files 
-
-Display Release Notes CSV file as a searchable, filterable, HTML table.
-
-
-## Steps
-
-#### 1. Download CSV File form Azure DevOps Release Notes Query:
-
-``` URL 
-https://prdr.visualstudio.com/PR/_queries/query/369f2e22-402e-406d-86be-507022abdd4e/
-```
-
-#### 2. Add the CSV file to the `input/` folder
-
-#### 3. Trigger `format_CSV.py` to generate the `LatestReleaseNotes.csv` file
-
-``` Python
-<script>
- import csv
+import csv
 
 input_file = '../input/Release Notes.csv'
 output_file = '../data/LatestReleaseNotes.csv'
@@ -36,4 +17,3 @@ with open(input_file, "r") as source:
             for col_index in cols_to_remove:
                 del row[col_index]
             writer.writerow(row)
-</script>
