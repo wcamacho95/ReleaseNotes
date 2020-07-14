@@ -9,47 +9,52 @@ CsvToHtmlTable = {
         var csv_options = options.csv_options || {};
         var datatables_options = options.datatables_options || {};
         var custom_formatting = options.custom_formatting || [];
+        var customTemplates = {};
+        $.each(custom_formatting, function (i, v) {
+            var colIdx = v[0];
+            var func = v[1];
+            customTemplates[colIdx] = func;
+        });
 
-        $("#" + el).html("<table class='table table-striped table-condensed' id='" + el + "-table'></table>");
+        var $table = $("<table class='table table-striped table-condensed' id='" + el + "-table'></table>");
+        var $containerElement = $("#" + el);
+        $containerElement.empty().append($table);
 
         $.when($.get(csv_path)).then(
             function (data) {
-                var csv_data = $.csv.toArrays(data, csv_options);
-
-                var table_head = "<thead><tr>";
-
-                for (head_id = 0; head_id < csv_data[0].length; head_id++) {
-                    table_head += "<th>" + csv_data[0][head_id] + "</th>";
+                var csvData = $.csv.toArrays(data, csv_options);
+                var $tableHead = $("<thead></thead>");
+                var csvHeaderRow = csvData[0];
+                var $tableHeadRow = $("<tr></tr>");
+                for (var headerIdx = 0; headerIdx < csvHeaderRow.length; headerIdx++) {
+                    $tableHeadRow.append($("<th></th>").text(csvHeaderRow[headerIdx]));
                 }
+                $tableHead.append($tableHeadRow);
 
-                table_head += "</tr></thead>";
-                $('#' + el + '-table').append(table_head);
-                $('#' + el + '-table').append("<tbody></tbody>");
+                $table.append($tableHead);
+                var $tableBody = $("<tbody></tbody>");
 
-                for (row_id = 1; row_id < csv_data.length; row_id++) {
-                    var row_html = "<tr>";
-
-                    //takes in an array of column index and function pairs
-                    if (custom_formatting != []) {
-                        $.each(custom_formatting, function (i, v) {
-                            var col_idx = v[0];
-                            var func = v[1];
-                            csv_data[row_id][col_idx] = func(csv_data[row_id][col_idx]);
-                        })
+                for (var rowIdx = 1; rowIdx < csvData.length; rowIdx++) {
+                   var row_html = "<tr>";
+                    for (var colIdx = 0; colIdx < csvData[rowIdx].length; colIdx++) {
+                        var $tableBodyRowTd = $("<td></td>");
+                        var cellTemplateFunc = customTemplates[colIdx];
+                        if (cellTemplateFunc) {
+                             row_html += "<td>" + cellTemplateFunc(csvData[rowIdx][colIdx])
+                             + "</td>";   ;
+                        } else {
+                           row_html += "<td>" + csvData[rowIdx][colIdx] + "</td>";
+                        }
+                       // $tableBodyRow.append($tableBodyRowTd);
+                        //$tableBody.append($tableBodyRow);
                     }
-
-                    for (col_id = 0; col_id < csv_data[row_id].length; col_id++) {
-                        row_html += "<td>" + csv_data[row_id][col_id] + "</td>";
-                    }
-
-                    row_html += "</tr>";
-                    $('#' + el + '-table tbody').append(row_html);
                 }
+                $table.append($tableBody);
 
-                $('#' + el + '-table').DataTable(datatables_options);
+                $table.DataTable(datatables_options);
 
                 if (allow_download) {
-                    $("#" + el).append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
+                    $containerElement.append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
                 }
             });
     }
