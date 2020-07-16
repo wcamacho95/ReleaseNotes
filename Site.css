@@ -29,7 +29,7 @@ span.k-widget.k-tooltip-validation {
 .master_body {
     display: flex;
     flex-direction: column;
-    height: 200vh;
+    height: 100%;
     font-size: calc(10px + 0.25vw);
 }
 
