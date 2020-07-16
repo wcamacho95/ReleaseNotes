@@ -19,56 +19,27 @@
 			</div>
 			<div class="master_main_content">
 				<div style=" width: 1200px;  background-color:white; margin:auto;">
-<div class="container-fluid">
-        <main class="row">
-            <div class="col">
-                <h1>Release Notes</h1>
+                    <div class="container-fluid">
+                        <main class="row">
+                            <div class="col">
+                                <h1>Release Notes</h1>
 
-                <p>PR DRS Updates</p>
+                                <p>PR DRS Updates</p>
 
-                <p> Here are the release notes for PR DRS Updates 
-                </p>
+                                <p> Here are the release notes for PR DRS Updates 
+                                </p>
 
-                <div id="table-container"></div>
-            </div>
-        </main>
-        <footer class="row">
-            <div class="col">
-                <hr>
-                <p></p>
-            </div>
-        </footer>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery.csv.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="js/csv_to_html_table.js"></script>
-
-    <script>
-        function format_link(link) {
-            if (link)
-                return "<a href='" + link + "' target='_blank'>" + link + "</a>";
-            else return "";
-        }
-
-        CsvToHtmlTable.init({
-            csv_path: "data/LatestReleaseNotes.csv",
-            element: "table-container",
-            allow_download: true,
-            csv_options: {
-                separator: ",",
-                delimiter: '"'
-            },
-            datatables_options: {
-                paging: false
-            },
-            custom_formatting: [
-                [4, format_link]
-            ]
-        });
-    </script>
+                                <div id="table-container"></div>
+                            </div>
+                        </main>
+                        <footer class="row">
+                            <div class="col">
+                                <hr>
+                                <p></p>
+                            </div>
+                        </footer>
+                    </div>
+    
 				</div>
 			</div>
 			<div class="master_footer">
@@ -79,6 +50,42 @@
 				</div>
 			</div>
 		</div>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.csv.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://unpkg.com/@isomorphic-git/lightning-fs"></script>
+        <script src="https://unpkg.com/isomorphic-git"></script>
+        <script src="js/csv_html_table_outline.js"></script>
+
+        <script>
+            function format_link(link) {
+                if (link)
+                    return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+                else return "";
+            }
+
+            // // Generate list
+            // var input_path = 'input/LatestReleaseNotes.csv'
+            // var csv_data = $.csv.toArrays(data, csv_options);
+
+            CsvToHtmlTable.init({
+                csv_path: "data/LatestReleaseNotes.csv",
+                element: "table-container",
+                allow_download: true,
+                csv_options: {
+                    separator: ",",
+                    delimiter: '"'
+                },
+                datatables_options: {
+                    paging: false
+                },
+                custom_formatting: [
+                    [4, format_link]
+                ]
+            });
+        </script>
 	</body>
 </html>
 
