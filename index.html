@@ -21,7 +21,7 @@
 				<div style=" width: 1200px;  background-color:white; margin:auto;">
                     <div class="container-fluid">
                         <main class="row">
-                            <div class="col">
+                            <div class="col-10">
                                 <h1>Release Notes</h1>
 
                                 <p>PR DRS Updates</p>
@@ -30,6 +30,10 @@
                                 </p>
 
                                 <div id="table-container"></div>
+                            </div>
+                            <div class="col-2">
+                                <div>Release History</div>
+                                <div id="release-container"></div>
                             </div>
                         </main>
                         <footer class="row">
@@ -55,8 +59,7 @@
         <script src="js/jquery.csv.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-        <script src="https://unpkg.com/@isomorphic-git/lightning-fs"></script>
-        <script src="https://unpkg.com/isomorphic-git"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
         <script src="js/csv_html_table_outline.js"></script>
 
         <script>
@@ -85,6 +88,41 @@
                     [4, format_link]
                 ]
             });
+
+
+            CsvToHtmlTable.showReleaseList({
+                csv_path: "input/release_list.csv",
+                element: "release-container",
+                csv_options: {
+                    separator: ",",
+                    delimiter: '"'
+                },
+            });
+
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(document).on("click", "#release-container a", function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    CsvToHtmlTable.init({
+                        csv_path: "data/" + $(e.target).data()["link"],
+                        element: "table-container",
+                        allow_download: true,
+                        csv_options: {
+                            separator: ",",
+                            delimiter: '"'
+                        },
+                        datatables_options: {
+                            paging: false
+                        },
+                        custom_formatting: [
+                            [4, format_link]
+                        ]
+                    });
+                })
+            })
         </script>
 	</body>
 </html>

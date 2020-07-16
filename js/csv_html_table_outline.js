@@ -18,9 +18,10 @@ CsvToHtmlTable = {
 
                 var table_head = "<thead><tr>";
 
-                for (head_id = 0; head_id < csv_data[0].length; head_id++) {
-                    table_head += "<th>" + csv_data[0][head_id] + "</th>";
-                }
+                table_head += "<th>" + csv_data[0][0] + "</th>";
+                // for (head_id = 0; head_id < csv_data[0].length; head_id++) {
+                //     table_head += "<th>" + csv_data[0][head_id] + "</th>";
+                // }
 
                 table_head += "</tr></thead>";
                 $('#' + el + '-table').append(table_head);
@@ -59,5 +60,23 @@ CsvToHtmlTable = {
                     $("#" + el).append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
                 }
             });
+    },
+    showReleaseList: function(options) {
+        options = options || {};
+        var csv_path = options.csv_path || "";
+        var el = options.element || "release-container";
+        var csv_options = options.csv_options || {};
+        $.when($.get(csv_path)).then(
+            function (data) {
+                var csv_data = $.csv.toArrays(data, csv_options);
+                console.log(csv_data)
+                var html = '';
+                for (row_id = 0; row_id < csv_data.length; row_id++) {
+                    html += `<div><a href="#" data-link="` + csv_data[row_id][1] + `" target="_blank">` + csv_data[row_id][0] + `</a></div>`
+                }
+
+                $("#" + el).html(html);
+            }
+        )
     }
 };
