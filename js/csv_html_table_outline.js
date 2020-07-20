@@ -78,7 +78,7 @@ CsvToHtmlTable = {
                 console.log(data)
                 var csv_data = $.csv.toArrays(data, csv_options);
                 csv_data = csv_data.sort(function (a, b) {
-                    return a[0] - b[0]
+                    return b[0] - a[0]
                 })
                 var html = '<ul>';
 
