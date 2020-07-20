@@ -22,8 +22,8 @@ CsvToHtmlTable = {
                 var csv_data = $.csv.toArrays(data, csv_options);
 
                 var table_head = "<thead><tr>";
-
-                table_head += "<th>" + csv_data[0][0] + "</th>";
+                table_head += "<th>" + csv_path.replace('data/', '').replace('.csv', '') + "</th>";
+                //table_head += "<th>" + csv_data[0][0] + "</th>";
                 // for (head_id = 0; head_id < csv_data[0].length; head_id++) {
                 //     table_head += "<th>" + csv_data[0][head_id] + "</th>";
                 // }
