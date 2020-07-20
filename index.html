@@ -74,21 +74,21 @@
             // var input_path = 'input/LatestReleaseNotes.csv'
             // var csv_data = $.csv.toArrays(data, csv_options);
 
-            CsvToHtmlTable.init({
-                csv_path: "data/LatestReleaseNotes.csv",
-                element: "table-container",
-                allow_download: true,
-                csv_options: {
-                    separator: ",",
-                    delimiter: '"'
-                },
-                datatables_options: {
-                    paging: false
-                },
-                custom_formatting: [
-                    [2, format_link]
-                ]
-            });
+     //       CsvToHtmlTable.init({
+     //           csv_path: "data/LatestReleaseNotes.csv",
+     //           element: "table-container",
+    //          allow_download: true,
+    //            csv_options: {
+    //                separator: ",",
+    //                delimiter: '"'
+    //            },
+    //            datatables_options: {
+       //             paging: false
+       //         },
+      //          custom_formatting: [
+      //              [2, format_link]
+      //          ]
+      //      });
 
 
             CsvToHtmlTable.showReleaseList({
@@ -124,7 +124,7 @@
                             paging: false
                         },
                         custom_formatting: [
-                            [4, format_link]
+                            [2, format_link]
                         ]
                     });
                 })
