@@ -18,6 +18,7 @@ CsvToHtmlTable = {
 
         $.when($.get(csv_path)).then(
             function (data) {
+                console.log("@@@@@@@@@@@@@@@@")
                 var csv_data = $.csv.toArrays(data, csv_options);
 
                 var table_head = "<thead><tr>";
@@ -66,6 +67,7 @@ CsvToHtmlTable = {
             });
     },
     showReleaseList: function(options) {
+        console.log("dfsfsdf")
         options = options || {};
         var csv_path = options.csv_path || "";
         var el = options.element || "release-container";
@@ -73,6 +75,7 @@ CsvToHtmlTable = {
         var releaseEl = options.release_element || "release-date";
         $.when($.get(csv_path)).then(
             function (data) {
+                console.log(data)
                 var csv_data = $.csv.toArrays(data, csv_options);
                 csv_data = csv_data.sort(function (a, b) {
                     return a[0] - b[0]
@@ -90,6 +93,25 @@ CsvToHtmlTable = {
                 $("#" + el).html(html);
 
                 $("#" + releaseEl).html("Release " + convertStringToDate(csv_data[csv_data.length-1][0]));
+
+                if (csv_data.length > 0 && csv_data[0]) {
+                    // refresh table
+                    CsvToHtmlTable.init({
+                        csv_path: "data/" + csv_data[0][1],
+                        element: "table-container",
+                        allow_download: true,
+                        csv_options: {
+                            separator: ",",
+                            delimiter: '"'
+                        },
+                        datatables_options: {
+                            paging: false
+                        },
+                        custom_formatting: [
+                            [2, format_link]
+                        ]
+                    });
+                }
             }
         )
     }
