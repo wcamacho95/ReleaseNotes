@@ -21,19 +21,20 @@
 				<div style=" width: 1200px;  background-color:white; margin:auto;">
                     <div class="container-fluid">
                         <main class="row">
-                            <div class="col-10">
-                                <h1>Release Notes</h1>
+                            <div class="col-12">
+                                <h1 class="text-blue"><strong>PR DRS Release Notes</strong></h1>
 
-                                <p>PR DRS Updates</p>
+                                <p><span id="release-date" class="sub-title"></span></p>
 
-                                <p> Here are the release notes for PR DRS Updates 
-                                </p>
-
-                                <div id="table-container"></div>
-                            </div>
-                            <div class="col-2">
-                                <div>Release History</div>
-                                <div id="release-container"></div>
+                                <div class="row">
+                                    <div id="table-container" class="col-10"></div>
+                                    <div class="col-2 release-history">
+                                        <div class="d-flex release-history__title">
+                                            <span class="m-auto sub-title">Release History</span>
+                                        </div>
+                                        <div id="release-container" class="release-history__content"></div>
+                                    </div>
+                                </div>
                             </div>
                         </main>
                         <footer class="row">
@@ -85,7 +86,7 @@
                     paging: false
                 },
                 custom_formatting: [
-                    [4, format_link]
+                    [2, format_link]
                 ]
             });
 
@@ -97,6 +98,7 @@
                     separator: ",",
                     delimiter: '"'
                 },
+                release_element: "release-date"
             });
 
         </script>
@@ -106,6 +108,10 @@
                     e.preventDefault();
                     e.stopPropagation();
 
+                    // change release date
+                    $("#release-date").text('Release ' + e.target.textContent);
+
+                    // refresh table
                     CsvToHtmlTable.init({
                         csv_path: "data/" + $(e.target).data()["link"],
                         element: "table-container",
@@ -118,7 +124,7 @@
                             paging: false
                         },
                         custom_formatting: [
-                            [2, format_link]
+                            [4, format_link]
                         ]
                     });
                 })

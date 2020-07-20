@@ -1034,3 +1034,49 @@ a.waves-effect .waves-ripple {
 .w-inherit{
     width: inherit !important;
 }
+
+.text-blue {
+  color: #262262;
+}
+
+#table-container-table_wrapper > .row:first-child {
+    background-color: grey;
+    margin: 0;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    margin-top: 0.5rem;
+}
+
+.sub-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.release-history__title {
+    height: 47px;
+    background-color: grey;
+}
+
+#release-container a {
+    color: black;
+}
+
+.release-history__content ul {
+    margin: 0.75em 0;
+    padding: 0 1em;
+    list-style: none;
+}
+
+.release-history__content li:before {
+    content: "";
+    border-color: transparent #111;
+    border-style: solid;
+    border-width: 0.35em 0 0.35em 0.45em;
+    display: block;
+    height: 0;
+    width: 0;
+    left: -1em;
+    top: 1.05em;
+    position: relative;
+}

@@ -1,5 +1,9 @@
 var CsvToHtmlTable = CsvToHtmlTable || {};
 
+function convertStringToDate(str) {
+    return str.slice(0,4) + '.' + str.slice(4,6) + '.' + str.slice(6,8);
+}
+
 CsvToHtmlTable = {
     init: function (options) {
         options = options || {};
@@ -66,16 +70,26 @@ CsvToHtmlTable = {
         var csv_path = options.csv_path || "";
         var el = options.element || "release-container";
         var csv_options = options.csv_options || {};
+        var releaseEl = options.release_element || "release-date";
         $.when($.get(csv_path)).then(
             function (data) {
                 var csv_data = $.csv.toArrays(data, csv_options);
-                console.log(csv_data)
-                var html = '';
+                csv_data = csv_data.sort(function (a, b) {
+                    return a[0] - b[0]
+                })
+                var html = '<ul>';
+
                 for (row_id = 0; row_id < csv_data.length; row_id++) {
-                    html += `<div><a href="#" data-link="` + csv_data[row_id][1] + `" target="_blank">` + csv_data[row_id][0] + `</a></div>`
+                    var release_date = convertStringToDate(csv_data[row_id][0]);
+
+                    html += `<li><a href="#" data-link="` + csv_data[row_id][1]
+                         + `" target="_blank">` + release_date + `</a></li>`;
                 }
+                html += '</ul>'
 
                 $("#" + el).html(html);
+
+                $("#" + releaseEl).html("Release " + convertStringToDate(csv_data[csv_data.length-1][0]));
             }
         )
     }
