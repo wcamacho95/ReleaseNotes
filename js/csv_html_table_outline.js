@@ -86,21 +86,21 @@ CsvToHtmlTable = {
                 for (row_id = 0; row_id < csv_data.length; row_id++) {
                     var release_date = convertStringToDate(csv_data[row_id][0]);
 
-                    html += `<li><a href="#" data-link="` + csv_data[row_id][1]
-                         + `" target="_blank">` + release_date + `</a></li>`;
+                    html += '<li><a href="#" data-link="' + csv_data[row_id][1]
+                         + '" target="_blank">' + release_date + '</a></li>';
                 }
                 html += '</ul>'
 
                 $("#" + el).html(html);
-
-                $("#" + releaseEl).html("Release " + convertStringToDate(csv_data[csv_data.length-1][0]));
+               
+                $("#" + releaseEl).html("Release " + convertStringToDate(csv_data[0][0]));
 
                 if (csv_data.length > 0 && csv_data[0]) {
                     // refresh table
                     CsvToHtmlTable.init({
                         csv_path: "data/" + csv_data[0][1],
                         element: "table-container",
-                        allow_download: true,
+                        allow_download: false,
                         csv_options: {
                             separator: ",",
                             delimiter: '"'

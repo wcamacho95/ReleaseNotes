@@ -1,115 +1,230 @@
 ﻿<!DOCTYPE html>
+
 <html>
+
 	<head>
+
 		<meta charset="utf-8" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 		<title>DRS Release Notes</title>
+
 	    <link href="css/Site.css" rel="stylesheet" />
+
 	     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+
         crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
     </head>
+
 	<body class="master_login_body">
+
 		<div class="master_body">
+
 			<div class="master_header">
+
 				<div class="master_header_row">
+
 					<div class="master_header_logo_cor3"><img img src="assets/COR3-LOGO-EN-White-cropped.png" /></div>
+
 					<div class="master_header_logo_drs"><img img src="assets/Disaster Recovery Solution.png" /></div>
+
 				</div>
+
 			</div>
+
 			<div class="master_main_content">
+
 				<div style=" width: 1200px;  background-color:white; margin:auto;">
+
                     <div class="container-fluid">
+
                         <main class="row">
+
                             <div class="col-12">
+
                                 <h1 class="text-blue"><strong>PR DRS Release Notes</strong></h1>
+
+
 
                                 <p><span id="release-date" class="sub-title"></span></p>
 
+
+
                                 <div class="row">
+
                                     <div id="table-container" class="col-10"></div>
+
                                     <div class="col-2 release-history">
+
                                         <div class="d-flex release-history__title">
+
                                             <span class="m-auto sub-title">Release History</span>
+
                                         </div>
+
                                         <div id="release-container" class="release-history__content"></div>
+
                                     </div>
+
                                 </div>
+
                             </div>
+
                         </main>
+
                         <footer class="row">
+
                             <div class="col">
+
                                 <hr>
+
                                 <p></p>
+
                             </div>
+
                         </footer>
+
                     </div>
+
     
+
 				</div>
+
 			</div>
+
 			<div class="master_footer">
+
 				<div class="master_footer_upperline"></div>
+
 				<div class="master_footer_midline"></div>
+
 				<div class="master_footer_content">
+
 					<div class="master_footer_text"></div>
+
 				</div>
+
 			</div>
+
 		</div>
+
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+
         <script src="js/jquery.csv.min.js"></script>
+
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
         <script src="js/csv_html_table_outline.js"></script>
 
+
+
         <script>
+
             function format_link(link) {
+
                 if (link)
+
                     return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+
                 else return "";
+
             }
 
 
+
+
+
             CsvToHtmlTable.showReleaseList({
+
                 csv_path: "input/release_list.csv",
+
                 element: "release-container",
+
                 csv_options: {
+
                     separator: ",",
+
                     delimiter: '"'
+
                 },
+
                 release_element: "release-date"
+
             });
 
+
+
         </script>
+
         <script type="text/javascript">
+
             $(document).ready(function() {
+               
                 $(document).on("click", "#release-container a", function(e) {
+
                     e.preventDefault();
+
                     e.stopPropagation();
 
+
+
                     // change release date
+
                     $("#release-date").text('Release ' + e.target.textContent);
 
+
+
                     // refresh table
+
                     CsvToHtmlTable.init({
+
                         csv_path: "data/" + $(e.target).data()["link"],
+
                         element: "table-container",
+
                         allow_download: false,
+
                         csv_options: {
+
                             separator: ",",
+
                             delimiter: '"'
+
                         },
+
                         datatables_options: {
+
                             paging: false
+
                         },
+
                         custom_formatting: [
+
                             [4, format_link]
+
                         ]
+
                     });
+
                 })
+
             })
+
         </script>
+
 	</body>
+
 </html>
+
+
 
